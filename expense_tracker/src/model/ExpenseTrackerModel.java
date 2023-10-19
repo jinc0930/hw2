@@ -5,7 +5,8 @@ import java.util.List;
 
 public class ExpenseTrackerModel {
 
-  public List<Transaction> transactions;
+  //encapsulation to transactions 
+  private List<Transaction> transactions;
 
   public ExpenseTrackerModel() {
     transactions = new ArrayList<>(); 
@@ -20,7 +21,8 @@ public class ExpenseTrackerModel {
   }
 
   public List<Transaction> getTransactions() {
-    return transactions;
+    //make a copy of the transactions list in the getter function to ensure immutability
+    return new ArrayList<>(transactions);
   }
 
 }
