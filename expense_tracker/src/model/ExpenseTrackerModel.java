@@ -22,7 +22,9 @@ public class ExpenseTrackerModel {
 
   public List<Transaction> getTransactions() {
     //make a copy of the transactions list in the getter function to ensure immutability
-    return new ArrayList<>(transactions);
+    List<Transaction> copyOfTransactions = new ArrayList<Transaction>();
+    copyOfTransactions.addAll(this.transactions);
+    return copyOfTransactions;
   }
 
 }
