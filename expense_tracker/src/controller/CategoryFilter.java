@@ -7,20 +7,16 @@ import model.Transaction;
 
 public class CategoryFilter implements TransactionFilter {
     
-    private String category;
-    private boolean enabled;
+    private String category; //holds the category the user wishes to filter on
+    private boolean enabled; //holds whether this filter is enabled or not
 
-    public CategoryFilter(String category) {
+    public CategoryFilter(String category) { //ctor
         this.category = category;
         this.enabled = false;
     }
 
     public void setEnabled(boolean isEnabled) {
         this.enabled = isEnabled;
-    }
-
-    public void disableFilter() {
-        this.enabled = false;
     }
 
     public boolean getEnabled() {
@@ -35,15 +31,10 @@ public class CategoryFilter implements TransactionFilter {
         return this.category;
     }
 
+    //filters a transaction list to only those who contain the category stored in this filter
     public List<Transaction> filter(List<Transaction> transactions) {
         List<Transaction> filteredTransactions = new ArrayList<Transaction>();
         for (Transaction item : transactions) {
-            // System.out.print("Item category: ");
-            // System.out.println(item.category);
-            // System.out.print("Filter category: ");
-            // System.out.println(getCategoryFilter());
-            System.out.print("Filter is equivalent: ");
-            System.out.println(item.getCategory().equals(getCategoryFilter()));
             if (item.getCategory().equals(this.category)) {
                 filteredTransactions.add(item);
             }

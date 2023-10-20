@@ -30,18 +30,18 @@ public class ExpenseTrackerController {
   }
 
   public void refresh() {
-    System.out.println("refresh");
     // Get transactions from model
     List<Transaction> transactions = model.getTransactions();
-    List<Transaction> highlightedTransactions = applyFilters();
-    System.out.println(highlightedTransactions);
+    List<Transaction> highlightedTransactions = applyFilters(); //apply filters to the transactions list
     JTable table = view.getTransactionsTable();
 
+    //override the default renderer for the table so we can set some rows green
     table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
           @Override
           public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                                                         boolean hasFocus, int row, int column) {
               Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+              //if any rows are also found in the highlighted table change them to green
               if ( !highlightedTransactions.isEmpty() && row < transactions.size() && highlightedTransactions.contains(transactions.get(row))) {
                   c.setBackground(new Color(173, 255, 168)); // Light green
               } else {
@@ -80,15 +80,13 @@ public class ExpenseTrackerController {
     List<Transaction> transactions = model.getTransactions();
     boolean filtered = false;
 
-
+    //apply the amount filter if it is enabled and it is a valid amount
     if (this.amountFilter.getEnabled() && InputValidation.isValidAmount(amountFilter.getAmountFilter())) {
       filtered = true;
           transactions = amountFilter.filter(transactions);
     }
 
-
-    System.out.println(this.categoryFilter.getEnabled());
-    System.out.println(InputValidation.isValidCategory(categoryFilter.getCategoryFilter()));
+    //apply the category filter if it is enabled and it is a valid category
     if (this.categoryFilter.getEnabled() && InputValidation.isValidCategory(categoryFilter.getCategoryFilter())) {
       filtered = true;
       transactions = categoryFilter.filter(transactions);
@@ -97,7 +95,7 @@ public class ExpenseTrackerController {
     if (filtered) {
       return transactions;
     }
-
+    //return an empty list if nothing was filtered
     return new ArrayList<Transaction>();
   }
 
