@@ -19,6 +19,10 @@ public class ExpenseTrackerView extends JFrame {
   private JFormattedTextField amountField;
   private JTextField categoryField;
   private DefaultTableModel model;
+  private JFormattedTextField amountFilter;
+  private JTextField categoryFilter;
+  private JCheckBox amountFilterEnable;
+  private JCheckBox categoryFilterEnable;
   
 
   public ExpenseTrackerView() {
@@ -37,9 +41,20 @@ public class ExpenseTrackerView extends JFrame {
     amountField = new JFormattedTextField(format);
     amountField.setColumns(10);
 
+    JLabel amountFilterLabel = new JLabel("Filter by Amount:");
+    amountFilter = new JFormattedTextField(format);
+    amountFilter.setColumns(10);
+
+    amountFilterEnable = new JCheckBox();
+
+    categoryFilterEnable = new JCheckBox();
+
     
     JLabel categoryLabel = new JLabel("Category:");
     categoryField = new JTextField(10);
+
+    JLabel categoryFilterLabel = new JLabel("Filter by Category:");
+    categoryFilter = new JTextField(10);
 
     // Create table
     transactionsTable = new JTable(model);
@@ -50,6 +65,12 @@ public class ExpenseTrackerView extends JFrame {
     inputPanel.add(amountField);
     inputPanel.add(categoryLabel); 
     inputPanel.add(categoryField);
+    inputPanel.add(amountFilterLabel);
+    inputPanel.add(amountFilterEnable);
+    inputPanel.add(amountFilter);
+    inputPanel.add(categoryFilterLabel); 
+    inputPanel.add(categoryFilterEnable);
+    inputPanel.add(categoryFilter);
     inputPanel.add(addTransactionBtn);
   
     JPanel buttonPanel = new JPanel();
@@ -61,9 +82,10 @@ public class ExpenseTrackerView extends JFrame {
     add(buttonPanel, BorderLayout.SOUTH);
   
     // Set frame properties
-    setSize(400, 300);
+    setSize(900, 300);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
+    
   
   }
 
@@ -88,11 +110,8 @@ public class ExpenseTrackerView extends JFrame {
       // Fire table update
       transactionsTable.updateUI();
   
-    }  
-  
+    }
 
-  
-  
   public JButton getAddTransactionBtn() {
     return addTransactionBtn;
   }
@@ -112,17 +131,24 @@ public class ExpenseTrackerView extends JFrame {
     return amount;
     }
   }
-
-  public void setAmountField(JFormattedTextField amountField) {
-    this.amountField = amountField;
-  }
-
   
   public String getCategoryField() {
     return categoryField.getText();
   }
 
-  public void setCategoryField(JTextField categoryField) {
-    this.categoryField = categoryField;
+  public JFormattedTextField getAmountFilter() {
+    return this.amountFilter;
+  }
+  
+  public JTextField getCategoryFilter() {
+    return categoryFilter;
+  }
+
+  public JCheckBox getCategoryFilterEnable() {
+    return this.categoryFilterEnable;
+  }
+
+  public JCheckBox getAmountFilterEnable() {
+    return this.amountFilterEnable;
   }
 }

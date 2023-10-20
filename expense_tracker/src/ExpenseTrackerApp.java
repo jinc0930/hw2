@@ -19,6 +19,34 @@ public class ExpenseTrackerApp {
     // Initialize view
     view.setVisible(true);
 
+    view.getAmountFilter().addActionListener(e -> {
+      double amount = 0;
+      if(!view.getAmountFilter().getText().isEmpty()) {
+        amount = Double.parseDouble(view.getAmountFilter().getText());
+      }
+      controller.setAmountFilterValue(amount);
+      System.out.println(amount);
+
+    });
+
+    view.getCategoryFilter().addActionListener(e -> {
+      String category = view.getCategoryFilter().getText();
+      controller.setCategoryFilterValue(category);
+      System.out.println(category);
+    });
+
+    view.getAmountFilterEnable().addActionListener(e -> {
+      controller.setAmountFilterEnabled(view.getAmountFilterEnable().isSelected());
+      System.out.println("Enabled amount");
+
+    });
+
+    view.getCategoryFilterEnable().addActionListener(e -> {
+      controller.setCategoryFilterEnabled(view.getCategoryFilterEnable().isSelected());
+      System.out.println("Enabled category");
+
+    });
+
     // Handle add transaction button clicks
     view.getAddTransactionBtn().addActionListener(e -> {
       // Get transaction data from view
